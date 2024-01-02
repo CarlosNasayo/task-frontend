@@ -1,9 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import NavbarE from './components/navbar';
+import Thing from './pages/thing';
 function App() {
   return (
-    <NavbarE/>
+    <>
+        <NavbarE/>
+    <Thing/>
+    </>
+
   );
 }
 
