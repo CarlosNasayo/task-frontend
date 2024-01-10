@@ -7,6 +7,7 @@ const Thing = () => {
     const [data, setData] = useState(null);
     const [isMounted, setIsMounted] = useState(true);
 
+
     useEffect(() => {
         setIsMounted(true);
 

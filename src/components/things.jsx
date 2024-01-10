@@ -1,12 +1,24 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
+import Modall from './modal';
 function Things({handlestatusdelete, id, handlestatus, index, title, description, completed, data, setData }) {
   const [isChecked, setChecked] = useState(false);
-
+  const [show, setShow] = useState(false);
+  const [modalBody, setModalBody] = useState('');
+  const [modalHeading, setModalHeading] = useState('');
+  const handleClose = (shouldDelete) => {
+    setShow(false);
+    if (shouldDelete && modalHeading === 'Eliminar tarea') {
+      deleteTask();
+    }
+  };
+  const handleShow = () => {
+    setShow(true);
+    setModalBody('¿Estas seguro de eliminar esta tarea?');
+    setModalHeading('Eliminar tarea');
+  };
   useEffect(() => {
     setChecked(completed);
   }, [completed]);
@@ -46,14 +58,21 @@ function Things({handlestatusdelete, id, handlestatus, index, title, description
  
         </Card.Body>
         <Card.Footer className='text-center'>
-          <Button variant="danger" onClick={deleteTask}>
+          <Button variant="danger" onClick={handleShow} className='m-2'>
             Eliminar
           </Button>
-          <Button variant="warning" >
+          <Button variant="warning" className='m-2' >
             Editar
           </Button>
         </Card.Footer>
       </Card>
+      <Modall
+  show={show}
+  handleClose={(shouldDelete) => handleClose(shouldDelete)}
+  handleShow={handleShow}
+  modalHeading={modalHeading}
+  modalBody={modalBody}
+/>
     </div>
   );
 }
